@@ -1,0 +1,253 @@
+---
+title: "STA130H1 -- Winter 2022"
+author: "S. Caetano & S. Schwartz & Your Name"
+subtitle: Module 7 Problem Set
+output:
+  pdf_document: default
+---
+
+```{r, echo=FALSE, include=FALSE}
+library(tidyverse)
+library(knitr)
+
+opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+# Instructions
+
+## How do I hand in these problems for the 11:59 a.m. ET, March 10 deadline?
+
+Your complete .Rmd file that you create for this problem set AND the resulting .pdf (i.e., the one you 'Knit to PDF' from your .Rmd file) must be uploaded into a Quercus assignment (link: [https://q.utoronto.ca/courses/253019/assignments/822520](https://q.utoronto.ca/courses/253019/assignments/822520)) by 11:59 a.m. ET, on March 10th. Late problem sets or problems submitted another way (e.g., by email) are *not* accepted.
+
+
+# Problem set grading
+
+There are two components to your problem set. 
+
+- Part one is R based: there is 1 mandatory question in part one, and additional optional questions.
+Optional R based questions are highly recommended as they will help prepare you for larger assessments (and help improve your R skills, of course!); but, they are part of the grading for the weekly problem sets.
+
+- Part two is (more) writing based: all of part two is mandatory. And this week your submission may optionally be a video or sound recording (as noted above) (and in preparation for future required video or sound recordings).
+
+We recommend you use a word processing software like Microsoft Word to check for grammar errors in your written work. Note: there can be issues copying from Word to R Markdown so it may be easier to write in the RMarkdown file first and then copy the text to Word. Then you can make any changes flagged in Word directly in your RMarkdown file.
+  
+\newpage 
+
+
+# Part 1
+
+## Question 1 [Required]
+
+On March 27, 2022 the Academy Awards (also known as the Oscars) are to take place. This year Lin Manuel Miranda is nominated for "Best Original Song" for his work on the Disney movie Encanto. Miranda has already won an Emmy, Grammy and Tony (mostly for his work on the broadway musical "Hamilton"). If Lin Manuel Miranda wins the Oscar on March 27 he will have an (EGOT)[https://www.vanityfair.com/hollywood/2022/02/oscar-nominations-2022-will-lin-manuel-miranda-finally-egot-for-encanto] (Emmy, Grammy, Oscar and Tony) a rare occurrence as only 16 people have won all four awards [see here](https://en.wikipedia.org/wiki/List_of_EGOT_winners#:~:text=As%20of%202022%2C%2016%20people,any%20of%20the%20EGOT%20awards.). 
+
+In this question we will look at a sample of weekly broadway musical data available in the `broadway.csv`. This dataset contains a sample of Broadway musical information for 500 weeks from 1985 to 2020. Here an observation is one broadway musical in a particular week (ending on a Sunday). Variables of interest are:
+
+- show: Name of the broadway musical/show.
+- Hamilton: indicates whether the musical is "Hamilton" or not.
+- week_ending: Date of the end of the weekly measurement period. Always a Sunday.
+- weekly_gross_overall:	Weekly box office gross for all shows.
+- avg_ticket_price:	Average price of tickets sold in a particular week.
+- top_ticket_price:	Highest price of tickets sold in a particular week.
+- seats_sold:	Total seats sold for all performances and previews in a particular week.
+- pct_capacity:	Percent of theatre capacity sold. Shows can exceed 100% capacity by selling standing room tickets.
+
+We will be interested to look at different ways to estimate the average ticket price.
+
+```{r}
+broadway_data <- read_csv("broadway.csv")
+glimpse(broadway_data)
+```
+
+### (a) Create an appropriate plot for the average ticket price based off the weekly gross overall sales. 
+
+```{r}
+
+
+```
+
+
+### (b) Briefly explain whether you think it is appropriate to fit a straight line through this plot as it is displayed?
+
+
+
+### (c) Add a new variable called `log_avg_ticket_price` to the dataset which is the natural logarithm of the average ticket price. You can use `mutate()` and the `log()` function. Add another new variable called `weekly_gross_overall_in_hundred_thousands` which takes `weekly_gross_overall` and divides by 100000. 
+
+```{r}
+
+```
+
+
+### (d) Plot the association between `log_avg_ticket_price` and `weekly_gross_overall_in_hundred_thousands` and use `geom_smooth(se=FALSE, method="lm")` to add a line of best fit to the plot. Describe this association in the plot.
+
+Note: You will learn more about transforming variables in future courses and are not required to be able to explain why we've done this here. You can just treat `log_avg_ticket_price` as we have other variables in class and refer to it as "the natural log of average ticket price".
+
+```{r}
+
+
+```
+
+
+
+
+### (e) Calculate the correlation between `log_avg_ticket_price` and `weekly_gross_overall_in_hundred_thousands`. You may find `summarise()` and `cor()` to be helpful functions.
+
+```{r}
+
+
+```
+
+### (f) Write down a simple linear regression model to predict log avg_ticket_price based on weekly gross overall income.  Be sure to explain each term in the model. 
+
+Hint: If you copy math equations from another software into your .Rmd document, you'll get errors when trying to knit.  Instead, you should type your math equations directly in your .Rmd document. Here are some tips and examples for doing this:
+
+1. In a .Rmd document, math equations and symbols must be typed between dollar symbols ($).
+
+2. If you want your equation/symbol to appear in the middle of a sentence, use only one dollar sign before and one dollar sign after. For example, we can typeset beta-hat-0 in .Rmd as $\hat{\beta}_0$.
+
+3. If you want your equation to appear on a line on its own, type it on a separate line and put two dollar signs at the begining and the end. For example,
+$$\hat{y} = \hat{\beta}_0 + \hat{\beta}_1$$
+
+4. A few other useful symbols you may need in this question are epsilon ($\epsilon$), "not equal" ($\neq$), and superscripts (e.g. $i^{th}$).
+
+
+
+
+### (g) State the null and alternative hypotheses you would use assess whether the slope of the linear regression model where weekly gross overall income in 1000s is predicting the log average ticket price.
+
+
+### (h) Use R to fit the linear model that corresponds with your line of best fit above. Report the fitted equation of the line. Interpret the regression coefficients in the context of this data AND make a conclusion about the hypotheses you defined above.
+
+```{r}
+
+```
+ 
+
+### (i) Get the $R^2$ for your model and write one sentence interpreting it in context.
+
+```{r}
+
+```
+
+
+
+### (j) Create a plot of average ticket price based off top ticket price faceted by whether the musical was "Hamilton" or not. Calculate the correlation between top ticket price and average ticket price for both Hamilton and non-Hamilton musicals (might be helpful to use `group_by`, `summarise()` and `cor()` and remove NAs of top ticket price).
+
+```{r}
+
+```
+
+
+
+\newpage
+
+## Question 2 [Optional]
+
+The `starbucks.csv` dataset contains data on calories and carbohydrates (in grams) in Starbucks food menu items.  
+
+```{r}
+starbucksdata<-read_csv("starbucks.csv")
+glimpse(starbucksdata)
+```
+
+
+### (a)  Produce a plot that shows the association between carbohydrates and calories in Starbucks menu items. Describe this association.
+
+```{r}
+
+
+```
+
+
+
+### (b) Before calculating anything, estimate the correlation coefficient between carbohydrates and calorie content in Starbucks menu items based on the plot you produced in (a). Justify your answer.
+
+
+
+### (c) Calculate the correlation between carbohydrate and calorie content of Starbucks menu items. How does this compare to your estimate in part (b)? 
+
+```{r}
+
+```
+
+
+
+### (d) Write down a simple linear regression model to predict calories based on carbohydrate content of Starbucks menu items.  Be sure to explain each term in the model. 
+
+
+### (e) Describe what the test $H_0: \beta_1=0$ vs $H_A: \beta_1 \ne 0$ is testing.  
+
+
+### (f) Use R to fit the regression model in (d) to these data. Report the fitted regression line. Interpret the regression coefficients in the context of this study AND make a conclusion about the hypotheses you defined above.
+
+```{r}
+
+```
+
+
+
+### (g) Add the estimated linear regression line that you calculated in (f) to the plot you generated in (a). Compute the coefficient of determination, $R^2$.  How well does the linear regression line seem to capture the relationship between `carb` and `calories`? Justify your answer.
+
+```{r}
+
+```
+
+
+
+## (h) Based on the Starbucks data, create a new dataset called `starbucks_lunch` which only contains food items which are of one of two types: "sandwich" and "bistro box". Create a boxplot comparing the distribution of calories for these two types of items.
+
+```{r}
+
+```
+
+
+# (i) Fit a linear regression model to test whether there is a difference in mean calories for items of type "bistro box" and items of type "sandwich". Write a sentence summarizing your conclusion.
+```{r}
+
+```
+
+
+
+
+\newpage
+# Part 2 
+
+ 
+You have just been hired as the first statistician for a start up company that make side walk chalk. Congratulations! You were hired because the owners are looking to add more credibility to their work by testing if their side walk chalk is significantly better than their competitors. This is based on whether children enjoy their free time more with their side walk chalk or their major competitor's (Mr. Bingbong). Each child enrolled in the study received either their side walk chalk or one from their major competitor. An adult in the household reported how much enjoyment their children got from playing with the chalk on a scale from 1 to 100. 
+
+The big boss at your company (Miss Sunny Lang) has heard about how her competitors using linear regression for their own studies and wants you to use the same. However, the Sunny does not actually know what linear regression is. Therefore, you need to craft an email explaining to Miss Lang what linear regression is, and whether it would be appropriate to use it for the proposed analysis. You should write out a hypothetical linear regression equation for the experiment and define what each part of the equation is in simple terms. Make sure to use a minimum of 2 vocabulary words and define the words for a nonstatistical audience. 
+
+
+## Some things to keep in mind  
+
+- Try to not spend more than 20 minutes on the prompt.    
+
+- Aim for more than 200 but less than 400 words.    
+
+- Use full sentences.    
+
+- Grammar is not the main focus of the assessment, but it is important that you communicate in a clear and professional manner (i.e., no slang or emojis should appear). 
+
+- Be specific. A good principle when responding to a prompt in STA130 is to assume that your audience is not aware of the subject matter (or in this case has not read the prompt).  
+
+
+## Vocabulary  
+
+Linear relationship 
+- Approximately linear 
+- Non-linear 
+- Correlation 
+- Slope 
+- Intercept 
+- (Simple) linear regression 
+- Regression model 
+- Parameter 
+- Regression coefficients 
+- Fitted regression line 
+- Explanatory/independent variable 
+- Dependent variable 
+- Measure of model fit 
+- Coefficient of determination 
+- Error 
+- Residual 
+- Least-squares 
+- Least-squares estimator
