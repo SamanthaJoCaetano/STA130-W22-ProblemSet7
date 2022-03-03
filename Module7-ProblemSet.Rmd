@@ -209,7 +209,7 @@ glimpse(starbucksdata)
 
 
 \newpage
-# Part 2 
+# Part 2 [Required]
 
  
 You have just been hired as the first statistician for a start up company that make side walk chalk. Congratulations! You were hired because the owners are looking to add more credibility to their work by testing if their side walk chalk is significantly better than their competitors. This is based on whether children enjoy their free time more with their side walk chalk or their major competitor's (Mr. Bingbong). Each child enrolled in the study received either their side walk chalk or one from their major competitor. An adult in the household reported how much enjoyment their children got from playing with the chalk on a scale from 1 to 100. 
